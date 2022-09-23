@@ -35,13 +35,8 @@
 
 <script setup lang="ts">
 import { ethers } from "ethers";
-const connect = async () => {
-	const { provider, signer, network } = await useMetaConnect();
-	console.log(provider, signer);
-	balance.value = await ethers.utils.formatEther(await signer.getBalance());
-	metaNetwork.value = network.name;
-	account.value = await signer.getAddress();
-};
+
+const { connect, provider, signer, network } = await useMetamask();
 
 const metaNetwork = ref("");
 const account = ref("");
@@ -49,10 +44,9 @@ const balance = ref("");
 const fundAmount = ref("");
 
 const getBalance = async () => {
-	const { signer } = await useMetaConnect();
+	const { signer } = await useMetamask();
 };
 const withdraw = async () => {};
-const fund = async () => {};
 </script>
 
 <style>
