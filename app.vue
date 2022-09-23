@@ -35,17 +35,12 @@
 
 <script setup lang="ts">
 import { ethers } from "ethers";
-import { useEthersStore } from "./stores/ethers";
-
-const ethersStore = useEthersStore();
 const connect = async () => {
-	await ethersStore.connect();
-
-	balance.value = await ethers.utils.formatEther(
-		await ethersStore.signer.getBalance()
-	);
-	metaNetwork.value = ethersStore.network.name;
-	account.value = await ethersStore.signer.getAddress();
+	const { provider, signer, network } = await useMetaConnect();
+	console.log(provider, signer);
+	balance.value = await ethers.utils.formatEther(await signer.getBalance());
+	metaNetwork.value = network.name;
+	account.value = await signer.getAddress();
 };
 
 const metaNetwork = ref("");
@@ -53,7 +48,9 @@ const account = ref("");
 const balance = ref("");
 const fundAmount = ref("");
 
-const getBalance = async () => {};
+const getBalance = async () => {
+	const { signer } = await useMetaConnect();
+};
 const withdraw = async () => {};
 const fund = async () => {};
 </script>
