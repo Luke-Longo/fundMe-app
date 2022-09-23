@@ -4,8 +4,12 @@
 			<h3 class="text-2xl text-center">Fund Me Contract</h3>
 		</div>
 		<div class="flex flex-col gap-4 m-20">
+			<div class="">
+				<p class="text-xl p-2">Account Address:</p>
+				<p class="text-xl p-2">{{ account }}</p>
+			</div>
 			<div class="flex justify-around">
-				<p class="text-xl p-2">Status: {{ status }}</p>
+				<p class="text-xl p-2">Network: {{ metaNetwork }}</p>
 				<p class="text-xl p-2">Balance: {{ balance }}</p>
 			</div>
 			<div class="flex justify-around">
@@ -31,13 +35,21 @@
 
 <script setup lang="ts">
 import { ethers } from "ethers";
+import { useEthersStore } from "./stores/ethers";
+
+const ethersStore = useEthersStore();
 const connect = async () => {
-	const { provider, signer } = await useMetaConnect();
-	console.log(provider, signer);
-	balance.value = await ethers.utils.formatEther(await signer.getBalance());
+	await ethersStore.connect();
+
+	balance.value = await ethers.utils.formatEther(
+		await ethersStore.signer.getBalance()
+	);
+	metaNetwork.value = ethersStore.network.name;
+	account.value = await ethersStore.signer.getAddress();
 };
 
-const status = ref("");
+const metaNetwork = ref("");
+const account = ref("");
 const balance = ref("");
 const fundAmount = ref("");
 
