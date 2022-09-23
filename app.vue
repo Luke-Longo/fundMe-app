@@ -31,11 +31,10 @@
 
 <script setup lang="ts">
 import { ethers } from "ethers";
-
 const connect = async () => {
-	const provider = await new ethers.providers.Web3Provider(window.ethereum);
-
-	await provider.send("eth_requestAccounts", []);
+	const { provider, signer } = await useMetaConnect();
+	console.log(provider, signer);
+	balance.value = await ethers.utils.formatEther(await signer.getBalance());
 };
 
 const status = ref("");
