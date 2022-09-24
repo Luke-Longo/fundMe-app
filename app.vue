@@ -6,10 +6,10 @@
 		<div class="flex flex-col gap-4 m-20">
 			<div class="">
 				<p class="text-xl p-2">Account Address:</p>
-				<p class="text-xl p-2">{{ account }}</p>
+				<p class="text-xl p-2">{{}}</p>
 			</div>
 			<div class="flex justify-around">
-				<p class="text-xl p-2">Network: {{ metaNetwork }}</p>
+				<p class="text-xl p-2">Network: {{ networkName }}</p>
 				<p class="text-xl p-2">Balance: {{ balance }}</p>
 			</div>
 			<div class="flex justify-around">
@@ -36,16 +36,13 @@
 <script setup lang="ts">
 import { ethers } from "ethers";
 
-const { connect, provider, signer, network } = await useMetamask();
+const { connect, address, networkName, fund, balance } = await useCrypto();
 
-const metaNetwork = ref("");
-const account = ref("");
-const balance = ref("");
+// const account = await ref(signer.getAddress());
+
 const fundAmount = ref("");
 
-const getBalance = async () => {
-	const { signer } = await useMetamask();
-};
+const getBalance = async () => {};
 const withdraw = async () => {};
 </script>
 
