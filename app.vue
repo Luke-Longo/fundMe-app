@@ -9,8 +9,8 @@
 				<p class="text-xl p-2">{{ address }}</p>
 			</div>
 			<div class="flex justify-around">
-				<p class="text-xl p-2">Network: {{ networkName }}</p>
-				<p class="text-xl p-2">Balance: {{ balance }}</p>
+				<p class="text-xl p-2">Contract Balance: {{ contractBalance }}</p>
+				<p class="text-xl p-2">User Balance: {{ balance }}</p>
 			</div>
 			<div class="flex justify-around">
 				<button @click="connect">Connect</button>
@@ -36,8 +36,16 @@
 <script setup lang="ts">
 import { ethers } from "ethers";
 
-const { connect, address, networkName, fund, balance, withdraw } =
-	await useCrypto();
+const {
+	connect,
+	address,
+	networkName,
+	fund,
+	balance,
+	withdraw,
+	getBalance,
+	contractBalance,
+} = await useCrypto();
 
 // const account = await ref(signer.getAddress());
 
@@ -47,7 +55,10 @@ const handleFund = async () => {
 	await fund(fundAmount.value);
 };
 
-const getBalance = async () => {};
+const handleBalance = async () => {
+	await getBalance();
+};
+
 const handleWithdraw = async () => {
 	await withdraw();
 };
