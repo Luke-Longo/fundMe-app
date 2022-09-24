@@ -6,7 +6,7 @@
 		<div class="flex flex-col gap-4 m-20">
 			<div class="">
 				<p class="text-xl p-2">Account Address:</p>
-				<p class="text-xl p-2">{{}}</p>
+				<p class="text-xl p-2">{{ address }}</p>
 			</div>
 			<div class="flex justify-around">
 				<p class="text-xl p-2">Network: {{ networkName }}</p>
@@ -15,7 +15,7 @@
 			<div class="flex justify-around">
 				<button @click="connect">Connect</button>
 				<button @click="getBalance">Get Contract Balance</button>
-				<button @click="withdraw">Withdraw</button>
+				<button @click="handleWithdraw">Withdraw</button>
 			</div>
 			<div class="flex justify-around">
 				<div class="flex gap-2 items-center">
@@ -27,7 +27,7 @@
 						v-model="fundAmount"
 					/>
 				</div>
-				<button @click="fund">Fund</button>
+				<button @click="handleFund">Fund</button>
 			</div>
 		</div>
 	</div>
@@ -36,14 +36,21 @@
 <script setup lang="ts">
 import { ethers } from "ethers";
 
-const { connect, address, networkName, fund, balance } = await useCrypto();
+const { connect, address, networkName, fund, balance, withdraw } =
+	await useCrypto();
 
 // const account = await ref(signer.getAddress());
 
 const fundAmount = ref("");
 
+const handleFund = async () => {
+	await fund(fundAmount.value);
+};
+
 const getBalance = async () => {};
-const withdraw = async () => {};
+const handleWithdraw = async () => {
+	await withdraw();
+};
 </script>
 
 <style>

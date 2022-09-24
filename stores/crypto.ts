@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ethers } from "ethers";
 import contractABI from "../artifacts/contracts/FundMe.sol/FundMe.json";
-const contractAddress = "0x578d9152A785b216436A2a8A1EB178cB0e294183";
+import { fundMeAddress } from "~~/constants";
 
 // this is a form of writing pinia as a composable function instead of an object with getters, state and actions
 export const useCryptoStore = defineStore("crypto", () => {
