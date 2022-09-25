@@ -14,7 +14,7 @@
 			</div>
 			<div class="flex justify-around">
 				<button @click="connect">Connect</button>
-				<button @click="getBalance">Get Contract Balance</button>
+				<button @click="handleBalance">Get Contract Balance</button>
 				<button @click="handleWithdraw">Withdraw</button>
 			</div>
 			<div class="flex justify-around">
@@ -34,8 +34,6 @@
 </template>
 
 <script setup lang="ts">
-import { ethers } from "ethers";
-
 const {
 	connect,
 	address,
@@ -53,6 +51,7 @@ const fundAmount = ref("");
 
 const handleFund = async () => {
 	await fund(fundAmount.value);
+	fundAmount.value = "";
 };
 
 const handleBalance = async () => {
